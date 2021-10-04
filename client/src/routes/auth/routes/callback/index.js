@@ -17,7 +17,8 @@ export const CallbackContainer = withAuth(({ auth }) => {
     const fetchData = async () => {
       const { idToken, email, firstName, lastName } = await auth.authClient.getAuthorizedData();
 
-      auth.authClient.setState({ token: idToken, email });
+      // need to pass workspaceId here to make it work
+      auth.authClient.setState({ token: idToken, email, workspaceId: 'ckucq7gge00xh09kz6dxyhh0i' });
 
       try {
         await client.query({

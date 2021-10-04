@@ -17,6 +17,8 @@ import { Listings } from './routes/listings';
 
 const { REACT_APP_8BASE_API_ENDPOINT, REACT_APP_CLIENT_DOMAIN, REACT_APP_CLIENT_ID } = process.env;
 
+console.log({ REACT_APP_8BASE_API_ENDPOINT });
+
 const authClient = Auth.createClient(
   {
     strategy: AUTH_STRATEGIES.WEB_COGNITO,
@@ -86,7 +88,7 @@ class Application extends React.PureComponent {
             authClient={authClient}
             onRequestSuccess={this.onRequestSuccess}
             onRequestError={this.onRequestError}
-            whithSubscription
+            withSubscriptions
           >
             {({ loading }) => (
               <AsyncContent loading={loading} stretch>
