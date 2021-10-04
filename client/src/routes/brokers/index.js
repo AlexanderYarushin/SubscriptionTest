@@ -1,17 +1,31 @@
 import React from 'react';
-import { Card, Heading } from '@8base/boost';
+import { Card } from '@8base/boost';
 import gql from 'graphql-tag';
 import { useSubscription, useQuery } from 'react-apollo';
 
-const abc = gql `subscription {
-    Posts(filter: {mutation_in: update}) {
+const update1 = gql`
+  subscription {
+    Posts(filter: { mutation_in: update }) {
       node {
         body
         title
       }
       updatedFields
     }
-}`;
+  }
+`;
+
+const create1 = gql`
+  subscription {
+    Posts(filter: { mutation_in: create }) {
+      node {
+        body
+        title
+      }
+      updatedFields
+    }
+  }
+`;
 
 const CURRENT_USER_QUERY = gql`
   query MyQuery {
@@ -31,11 +45,18 @@ const Brokers = () => {
   const { data } = useQuery(CURRENT_USER_QUERY);
   console.log(data);
 
-  useSubscription(abc, {
+  useSubscription(update1, {
     onSubscriptionData: async ({ subscriptionData }) => {
-      console.log(subscriptionData);
+      console.log({ subscriptionData });
     },
   });
+
+  useSubscription(create1, {
+    onSubscriptionData: async ({ subscriptionData }) => {
+      console.log({ subscriptionData });
+    },
+  });
+
   return (
     <Card padding="md" stretch>
       abc
